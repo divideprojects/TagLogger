@@ -165,19 +165,19 @@ async def privacy(client: bot, cb: CallbackQuery):
 
 async def _run(): 
     if not API_ID:
-        raise NameError
+        raise NameError("API_ID is Required to Run the Bot")
 
     if not API_HASH:
-        raise NameError
+        raise NameError("API_HASH is Required to Run the Bot")
 
     if not GROUP:
-        raise NameError
+        raise NameError("GROUP_ID is Required to Run the Bot")
 
     if not BOT_TOKEN:
-        raise NameError
+        raise NameError("BOT_TOKEN is Required to Run the Bot")
 
     if not SESSION:
-        raise NameError
+        raise NameError("SESSION is Required to Run the Bot")
 
     await bot.start()
     bot_info = await bot.get_me()
