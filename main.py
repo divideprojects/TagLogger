@@ -37,7 +37,7 @@ user = Client(SESSION, api_id=API_ID, api_hash=API_HASH)
 @user.on_message(filters.mentioned & filters.incoming)
 async def alert(client, message):
     if message.sender_chat:
-        button_s = InlineKeyboardMarkup
+        button_s = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(text="Anonymous Admin", callback_data="nuthing")
@@ -46,6 +46,7 @@ async def alert(client, message):
                     InlineKeyboardButton(text="📩 Message", url=message.link)
                 ]
             ]
+        )
 
         await bot.send_message(GROUP, message.text, reply_markup=button_s)
         message.continue_propagation()
