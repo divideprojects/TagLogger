@@ -1,21 +1,23 @@
 {
     "name": "Tag Logger Bot",
-    "description": "Simple Bot for notify you in a Group when you were Tagged",
+    "description": "Simple Bot for notify you in a Group when you were Tagged.",
     "keywords": [
         "telegram",
         "tags",
         "logs",
         "bot",
         "pyrogram",
-        "jayantkageri"
+        "jayantkageri",
+        "taglogger bot",
+        "taglogger"
     ],
-    "repository": "https://github.com/divideprojects/taglogger",
+    "repository": "https://github.com/DivideProjects/TagLogger",
     "website": "https://github.com/jayantkageri",
     "success_url": "https://github.com/jayantkageri",
     "env": {
         "HEROKU": {
-          "description": "Setting this to ANYTHING will enable Heroku",
-          "value": "ANYTHING"
+            "description": "Setting this to ANYTHING will enable Heroku, turned on by default!",
+            "value": "ANYTHING"
         },
         "API_ID": {
             "description": "Get this value from my.telegram.org or @useTGXbot",
@@ -24,7 +26,7 @@
         "API_HASH": {
             "description": "Get this value from my.telegram.org or @useTGXbot",
             "required": true
-       },
+        },
         "BOT_TOKEN": {
             "description": "Get this from @BotFather",
             "required": true
@@ -35,6 +37,7 @@
         },
         "GROUP_ID": {
             "description": "Logs Group ID for some Tracking. Example: -100123456789",
+            "value": "-100123456789",
             "required": true
         }
     },

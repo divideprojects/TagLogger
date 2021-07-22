@@ -1,6 +1,6 @@
 #    Tag Logger, A Telegram Bot to log when you were Mentioning
 #    Copyright (C) 2021 Jayant Hegde Kageri.
-#    
+#
 #    This program is free software: you can redistribute it or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -14,12 +14,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os, re
-import asyncio
-import logging
-import platform
+import os
+import re
 from pyrogram import filters, Client, idle
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    CallbackQuery,
+    Message,
+)
 
 if os.environ.get("HEROKU"):
     API_ID = os.environ.get("API_ID")
@@ -27,24 +30,20 @@ if os.environ.get("HEROKU"):
     BOT_TOKEN = os.environ.get("BOT_TOKEN")
     SESSION = os.environ.get("SESSION")
     GROUP = os.environ.get("GROUP_ID")
-
 else:
     from config import API_ID, API_HASH, BOT_TOKEN, SESSION, GROUP
 
 bot = Client("bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 user = Client(SESSION, api_id=API_ID, api_hash=API_HASH)
 
+
 @user.on_message(filters.mentioned & filters.incoming)
-async def alert(client, message):
+async def alert(_, message: Message):
     if message.sender_chat:
         button_s = InlineKeyboardMarkup(
             [
-                [
-                    InlineKeyboardButton(text="Anonymous Admin", callback_data="nuthing")
-                ],
-                [
-                    InlineKeyboardButton(text="📩 Message", url=message.link)
-                ]
+                [InlineKeyboardButton(text="Anonymous Admin", callback_data="nuthing")],
+                [InlineKeyboardButton(text="📩 Message", url=message.link)],
             ]
         )
 
@@ -66,28 +65,25 @@ async def alert(client, message):
         name = message.from_user.first_name
 
     if message.from_user.username:
-        user_s = f"https://t.me/{message.from_user.username}"
         button_s = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text=name, url=f"https://t.me/{message.from_user.username}")
+                    InlineKeyboardButton(
+                        text=name, url=f"https://t.me/{message.from_user.username}"
+                    )
                 ],
-                [
-                    InlineKeyboardButton(text=message.chat.title, url=message.link)
-                ]
-
+                [InlineKeyboardButton(text=message.chat.title, url=message.link)],
             ]
         )
     else:
         button_s = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text=name, callback_data="user({})".format(message.from_user.id))
+                    InlineKeyboardButton(
+                        text=name, callback_data="user({})".format(message.from_user.id)
+                    )
                 ],
-                [
-                    InlineKeyboardButton(text=message.chat.title, url=message.link)
-                ]
-
+                [InlineKeyboardButton(text=message.chat.title, url=message.link)],
             ]
         )
 
@@ -97,7 +93,9 @@ async def alert(client, message):
             message.continue_propagation()
             return
         elif message.sticker:
-            await bot.send_sticker(GROUP, message.sticker.file_id, reply_markup=button_s)
+            await bot.send_sticker(
+                GROUP, message.sticker.file_id, reply_markup=button_s
+            )
             message.continue_propagation()
             return
 
@@ -126,16 +124,14 @@ async def alert(client, message):
         message.continue_propagation()
         return
 
-    message.continue_propagation()
-
 
 @bot.on_callback_query(filters.regex("^user.*"))
-async def privacy(client: bot, cb: CallbackQuery):
+async def privacy(_, cb: CallbackQuery):
     if cb.message.text:
         old = cb.message.text
     else:
         old = None
-    match = re.match(r"user\((.+?)\)", cb.data)    
+    match = re.match(r"user\((.+?)\)", cb.data)
     if match:
         user_id = int(match.group(1))
 
@@ -157,13 +153,14 @@ async def privacy(client: bot, cb: CallbackQuery):
 
 
 @bot.on_callback_query(filters.regex("^nuthing.*"))
-async def privacy(client: bot, cb: CallbackQuery):
+async def privacy(_, cb: CallbackQuery):
     if cb.from_user:
         return
     else:
         return
 
-async def _run(): 
+
+async def _run():
     if not API_ID:
         raise NameError("API_ID is Required to Run the Bot")
 
@@ -185,10 +182,14 @@ async def _run():
     await user.start()
     user_info = await user.get_me()
 
-    FULL_INFO = f"[INFO] - SUCCESSFULLY STARTED BOT {bot_info.username} \n[INFO] - SUCCESSFULLY STARTED USER SESSION {user_info.username}"
+    FULL_INFO = (
+        f"[INFO] - SUCCESSFULLY STARTED BOT {bot_info.username}\n"
+        f"[INFO] - SUCCESSFULLY STARTED USER SESSION {user_info.username}"
+    )
     print(FULL_INFO)
 
     await idle()
+
 
 if __name__ == "__main__":
     user.loop.run_until_complete(_run())

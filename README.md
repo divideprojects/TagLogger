@@ -13,6 +13,7 @@
 
 ### For Local Deployment
 - Fill the Configuration File [config.py](config.py)
+- Install the dependencied by running `pip install -r requirements.txt`
 - Run `python3 -m main`
 
 ## Copyright
