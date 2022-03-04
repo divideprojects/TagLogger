@@ -87,34 +87,42 @@ async def alert(_, message: Message):
             ]
         )
 
-    if message.media == True:
+    if message.media:
         if message.photo:
-            await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
+            _f = await message.photo.download(f"{message.chat.id}_{message.message_id}")
+            await bot.send_photo(GROUP, _f, reply_markup=button_s)
+            os.remove(_f)
             message.continue_propagation()
             return
         elif message.sticker:
             await bot.send_sticker(
                 GROUP, message.sticker.file_id, reply_markup=button_s
             )
+            os.remove(_f)
             message.continue_propagation()
             return
 
         elif message.animation:
-            await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
+            _f = await message.animation.download(f"{message.chat.id}_{message.message_id}")
+            await bot.send_animation(GROUP, _f, reply_markup=button_s)
+            os.remove(_f)
             message.continue_propagation()
             return
 
         elif message.document:
-            await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
+            _f = await message.document.download(f"{message.chat.id}_{message.message_id}")
+            await bot.send_document(GROUP, _f, reply_markup=button_s)
+            os.remove(_f)
             message.continue_propagation()
             return
+
 
         else:
             await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
             message.continue_propagation()
             return
 
-    if message.text:
+    elif message.text:
         await bot.send_message(GROUP, message.text, reply_markup=button_s)
         message.continue_propagation()
         return
@@ -154,10 +162,7 @@ async def privacy(_, cb: CallbackQuery):
 
 @bot.on_callback_query(filters.regex("^nuthing.*"))
 async def privacy(_, cb: CallbackQuery):
-    if cb.from_user:
-        return
-    else:
-        return
+    return None
 
 
 async def _run():
