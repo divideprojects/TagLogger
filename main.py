@@ -60,7 +60,7 @@ async def alert(_, message: Message):
         return
 
     if message.from_user.last_name:
-        name = message.from_user.first_name + " " + message.from_user.last_name
+        name = f"{message.from_user.first_name} {message.from_user.last_name}"
     else:
         name = message.from_user.first_name
 
@@ -80,79 +80,62 @@ async def alert(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text=name, callback_data="user({})".format(message.from_user.id)
+                        text=name,
+                        callback_data=f"user({message.from_user.id})",
                     )
                 ],
-                [InlineKeyboardButton(text=message.chat.title, url=message.link)],
+                [
+                    InlineKeyboardButton(
+                        text=message.chat.title, url=message.link
+                    )
+                ],
             ]
         )
+
 
     if message.media:
         if message.photo:
             _f = await message.photo.download(f"{message.chat.id}_{message.message_id}")
             await bot.send_photo(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
-            message.continue_propagation()
-            return
         elif message.sticker:
             await bot.send_sticker(
                 GROUP, message.sticker.file_id, reply_markup=button_s
             )
             os.remove(_f)
-            message.continue_propagation()
-            return
-
         elif message.animation:
             _f = await message.animation.download(f"{message.chat.id}_{message.message_id}")
             await bot.send_animation(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
-            message.continue_propagation()
-            return
-
         elif message.document:
             _f = await message.document.download(f"{message.chat.id}_{message.message_id}")
             await bot.send_document(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
-            message.continue_propagation()
-            return
-
-
         else:
             await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
-            message.continue_propagation()
-            return
-
     elif message.text:
         await bot.send_message(GROUP, message.text, reply_markup=button_s)
-        message.continue_propagation()
-        return
-
     else:
         await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
-        message.continue_propagation()
-        return
+
+    message.continue_propagation()
+    return
 
 
 @bot.on_callback_query(filters.regex("^user.*"))
 async def privacy(_, cb: CallbackQuery):
-    if cb.message.text:
-        old = cb.message.text
-    else:
-        old = None
-    match = re.match(r"user\((.+?)\)", cb.data)
-    if match:
-        user_id = int(match.group(1))
+    old = cb.message.text or None
+    if match := re.match(r"user\((.+?)\)", cb.data):
+        user_id = int(match[1])
 
     try:
         user = await cb.message._client.get_users(user_id)
         if old != None:
-            new = old + f"\n\nUser: {user.mention} [`{user.id}`]"
+            new = f"{old}\n\nUser: {user.mention} [`{user.id}`]"
             await cb.message.edit_text(new)
-            return
         else:
             await cb.message.reply_text("User: {user.mention} [`{user.id}`]")
-            return
-
+        return
     except:
         if old != None:
             await cb.message.edit_text(f"{old}\n\nFrom User ID: `{user_id}`")
