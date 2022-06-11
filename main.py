@@ -1,19 +1,3 @@
-#    Tag Logger, A Telegram Bot to log when you were Mentioning
-#    Copyright (C) 2021 Jayant Hegde Kageri.
-#
-#    This program is free software: you can redistribute it or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 import os
 import re
 from pyrogram import filters, Client, idle
@@ -38,41 +22,41 @@ user = Client(SESSION, api_id=API_ID, api_hash=API_HASH)
 
 
 @user.on_message(filters.mentioned & filters.incoming)
-async def alert(_, message: Message):
-    if message.sender_chat:
+async def alert(_, m: Message):
+    if m.sender_chat:
         button_s = InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton(text="Anonymous Admin", callback_data="nuthing")],
-                [InlineKeyboardButton(text="📩 Message", url=message.link)],
+                [InlineKeyboardButton(text="📩 Message", url=m.link)],
             ]
         )
 
-        await bot.send_message(GROUP, message.text, reply_markup=button_s)
-        message.continue_propagation()
+        await bot.send_message(GROUP, m.text, reply_markup=button_s)
+        m.continue_propagation()
         return
 
-    if message.from_user.is_bot:
-        message.continue_propagation()
+    if m.from_user.is_bot:
+        m.continue_propagation()
         return
 
-    if not message:
-        message.continue_propagation()
+    if not m:
+        m.continue_propagation()
         return
 
-    if message.from_user.last_name:
-        name = f"{message.from_user.first_name} {message.from_user.last_name}"
+    if m.from_user.last_name:
+        name = f"{m.from_user.first_name} {m.from_user.last_name}"
     else:
-        name = message.from_user.first_name
+        name = m.from_user.first_name
 
-    if message.from_user.username:
+    if m.from_user.username:
         button_s = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text=name, url=f"https://t.me/{message.from_user.username}"
+                        text=name, url=f"https://t.me/{m.from_user.username}"
                     )
                 ],
-                [InlineKeyboardButton(text=message.chat.title, url=message.link)],
+                [InlineKeyboardButton(text=m.chat.title, url=m.link)],
             ]
         )
     else:
@@ -81,70 +65,63 @@ async def alert(_, message: Message):
                 [
                     InlineKeyboardButton(
                         text=name,
-                        callback_data=f"user({message.from_user.id})",
+                        callback_data=f"user({m.from_user.id})",
                     )
                 ],
-                [
-                    InlineKeyboardButton(
-                        text=message.chat.title, url=message.link
-                    )
-                ],
+                [InlineKeyboardButton(text=m.chat.title, url=m.link)],
             ]
         )
 
-
-    if message.media:
-        if message.photo:
-            _f = await message.photo.download(f"{message.chat.id}_{message.message_id}")
+    if m.media:
+        if m.photo:
+            _f = await m.photo.download(f"{m.chat.id}_{m.message_id}")
             await bot.send_photo(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
-        elif message.sticker:
-            await bot.send_sticker(
-                GROUP, message.sticker.file_id, reply_markup=button_s
-            )
+        elif m.sticker:
+            await bot.send_sticker(GROUP, m.sticker.file_id, reply_markup=button_s)
             os.remove(_f)
-        elif message.animation:
-            _f = await message.animation.download(f"{message.chat.id}_{message.message_id}")
+        elif m.animation:
+            _f = await m.animation.download(f"{m.chat.id}_{m.message_id}")
             await bot.send_animation(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
-        elif message.document:
-            _f = await message.document.download(f"{message.chat.id}_{message.message_id}")
+        elif m.document:
+            _f = await m.document.download(f"{m.chat.id}_{m.message_id}")
             await bot.send_document(GROUP, _f, reply_markup=button_s)
             os.remove(_f)
         else:
             await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
-    elif message.text:
-        await bot.send_message(GROUP, message.text, reply_markup=button_s)
+    elif m.text:
+        await bot.send_message(GROUP, m.text, reply_markup=button_s)
     else:
         await bot.send_message(GROUP, "Unsupported Message", reply_markup=button_s)
 
-    message.continue_propagation()
+    m.continue_propagation()
     return
 
 
 @bot.on_callback_query(filters.regex("^user.*"))
-async def privacy(_, cb: CallbackQuery):
-    old = cb.message.text or None
-    if match := re.match(r"user\((.+?)\)", cb.data):
+async def privacy(_, q: CallbackQuery):
+    old = q.message.text or None
+    if match := re.match(r"user\((.+?)\)", q.data):
         user_id = int(match[1])
 
     try:
-        user = await cb.message._client.get_users(user_id)
+        user = await q.message._client.get_users(user_id)
         if old != None:
             new = f"{old}\n\nUser: {user.mention} [`{user.id}`]"
-            await cb.message.edit_text(new)
+            await q.message.edit_text(new)
         else:
-            await cb.message.reply_text("User: {user.mention} [`{user.id}`]")
+            await q.message.reply_text("User: {user.mention} [`{user.id}`]")
         return
     except:
         if old != None:
-            await cb.message.edit_text(f"{old}\n\nFrom User ID: `{user_id}`")
+            await q.message.edit_text(f"{old}\n\nFrom User ID: `{user_id}`")
         else:
-            await cb.message.reply_text(f"From User ID: `{user_id}`")
+            await q.message.reply_text(f"From User ID: `{user_id}`")
 
 
 @bot.on_callback_query(filters.regex("^nuthing.*"))
-async def privacy(_, cb: CallbackQuery):
+async def privacy(_, __):
     return None
 
 
