@@ -12,7 +12,7 @@ TgCrypto = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
-pylint = "^2.14.1"
+pylint = "^2.14.4"
 pre-commit = "^2.19.0"
 isort = "^5.10.1"
 pyclean = "^2.2.0"
