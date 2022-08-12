@@ -28,10 +28,10 @@ tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
 typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-colorama = ["colorama (>=0.4.3)"]
-d = ["aiohttp (>=3.7.4)"]
-jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
+jupyter = ["tokenize-rt (>=3.2.0)", "ipython (>=7.8.0)"]
+d = ["aiohttp (>=3.7.4)"]
+colorama = ["colorama (>=0.4.3)"]
 
 [[package]]
 name = "cfgv"
@@ -88,8 +88,8 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo (>=2021.8.17b43)", "sphinx (>=4.1)", "sphinx-autodoc-typehints (>=1.12)"]
-testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-cov", "pytest-timeout (>=1.4.2)"]
+testing = ["pytest-timeout (>=1.4.2)", "pytest-cov", "pytest (>=4)", "coverage (>=4)", "covdefaults (>=1.2.0)"]
+docs = ["sphinx-autodoc-typehints (>=1.12)", "sphinx (>=4.1)", "furo (>=2021.8.17b43)"]
 
 [[package]]
 name = "identify"
@@ -165,8 +165,8 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-autodoc-typehints (>=1.12)", "sphinx (>=4)"]
-test = ["appdirs (==1.4.4)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)", "pytest (>=6)"]
+test = ["pytest (>=6)", "pytest-mock (>=3.6)", "pytest-cov (>=2.7)", "appdirs (==1.4.4)"]
+docs = ["sphinx (>=4)", "sphinx-autodoc-typehints (>=1.12)", "proselint (>=0.10.2)", "furo (>=2021.7.5b38)"]
 
 [[package]]
 name = "pre-commit"
@@ -220,12 +220,12 @@ tomlkit = ">=0.10.1"
 typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
+spelling = ["pyenchant (>=3.2,<4.0)"]
 
 [[package]]
 name = "pyrogram"
-version = "2.0.35"
+version = "2.0.36"
 description = "Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots"
 category = "main"
 optional = false
@@ -314,8 +314,8 @@ platformdirs = ">=2,<3"
 six = ">=1.9.0,<2"
 
 [package.extras]
-docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
-testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
+testing = ["packaging (>=20.0)", "pytest-timeout (>=1)", "pytest-randomly (>=1)", "pytest-mock (>=2)", "pytest-freezegun (>=0.4.1)", "pytest-env (>=0.6.2)", "pytest (>=4)", "flaky (>=3)", "coverage-enable-subprocess (>=1)", "coverage (>=4)"]
+docs = ["towncrier (>=21.3)", "sphinx-rtd-theme (>=0.4.3)", "sphinx-argparse (>=0.2.5)", "sphinx (>=3)", "proselint (>=0.10.2)"]
 
 [[package]]
 name = "wrapt"
@@ -328,7 +328,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d0989d3f5ace25afd4eebfe4fef7ae706b1262cfad28932e26ad66b9e49ab1a0"
+content-hash = "bd05dee10d37afcead47ebe025affbd5b576b47839205006ad8a8ac29ba523de"
 
 [metadata.files]
 astroid = [
@@ -467,8 +467,8 @@ pylint = [
     {file = "pylint-2.14.5.tar.gz", hash = "sha256:487ce2192eee48211269a0e976421f334cf94de1806ca9d0a99449adcdf0285e"},
 ]
 pyrogram = [
-    {file = "Pyrogram-2.0.35-py3-none-any.whl", hash = "sha256:7594afc62e16232e54bf4d9550c1943988a84dfd70e524eb3591d0cb82ea7e25"},
-    {file = "Pyrogram-2.0.35.tar.gz", hash = "sha256:21a7030a84d8251771c8457a293404cdd25f2054d7c2e66d08f634e7e7f2965f"},
+    {file = "Pyrogram-2.0.36-py3-none-any.whl", hash = "sha256:96b2f4fc4915371114ea49397334fbf7967b64aedc7915e71f41bca9ab7e72c5"},
+    {file = "Pyrogram-2.0.36.tar.gz", hash = "sha256:e4d8904fee0200673b0914e2b7277a629ec484891fc573cb9ba89f011064a75f"},
 ]
 pysocks = [
     {file = "PySocks-1.7.1-py27-none-any.whl", hash = "sha256:08e69f092cc6dbe92a0fdd16eeb9b9ffbc13cadfe5ca4c7bd92ffb078b293299"},
