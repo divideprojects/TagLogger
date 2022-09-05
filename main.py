@@ -1,10 +1,11 @@
 import os
 import re
-from pyrogram import filters, Client, idle
+
+from pyrogram import Client, filters, idle
 from pyrogram.types import (
+    CallbackQuery,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    CallbackQuery,
     Message,
 )
 
@@ -15,7 +16,7 @@ if os.environ.get("HEROKU"):
     SESSION = os.environ.get("SESSION")
     GROUP = os.environ.get("GROUP_ID")
 else:
-    from config import API_ID, API_HASH, BOT_TOKEN, SESSION, GROUP
+    from config import API_HASH, API_ID, BOT_TOKEN, GROUP, SESSION
 
 bot = Client("bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 user = Client(SESSION, api_id=API_ID, api_hash=API_HASH)
@@ -28,7 +29,7 @@ async def alert(_, m: Message):
             [
                 [InlineKeyboardButton(text="Anonymous Admin", callback_data="nuthing")],
                 [InlineKeyboardButton(text="📩 Message", url=m.link)],
-            ]
+            ],
         )
 
         await bot.send_message(GROUP, m.text, reply_markup=button_s)
@@ -53,11 +54,12 @@ async def alert(_, m: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text=name, url=f"https://t.me/{m.from_user.username}"
-                    )
+                        text=name,
+                        url=f"https://t.me/{m.from_user.username}",
+                    ),
                 ],
                 [InlineKeyboardButton(text=m.chat.title, url=m.link)],
-            ]
+            ],
         )
     else:
         button_s = InlineKeyboardMarkup(
@@ -66,10 +68,10 @@ async def alert(_, m: Message):
                     InlineKeyboardButton(
                         text=name,
                         callback_data=f"user({m.from_user.id})",
-                    )
+                    ),
                 ],
                 [InlineKeyboardButton(text=m.chat.title, url=m.link)],
-            ]
+            ],
         )
 
     if m.media:

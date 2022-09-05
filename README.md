@@ -20,7 +20,7 @@
 ```
     Tag Logger, A Telegram Bot to log when you were Mentioning
     Copyright (C) 2021 Jayant Hegde Kageri.
-    
+
     This program is free software: you can redistribute it or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -33,7 +33,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  
+
 ```
 ## Powered By
 [![Jayant Hegde Kageri](https://img.shields.io/badge/Jayant-Kageri-green?style=for-the-badge&logo=origin)](https://github.com/jayantkageri)
