@@ -1,5 +1,5 @@
 # Tag Logger
-- Simple Bot for notify you in a Group when you were Tagged
+- A simple bot for notify you in a group when you were tagged.
 
 ## Deployment
 - Gather `API_ID` and `API_HASH` [from here](https://my.telegram.org/apps)
