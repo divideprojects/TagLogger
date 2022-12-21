@@ -37,4 +37,4 @@
 ```
 ## Powered By
 [![Jayant Hegde Kageri](https://img.shields.io/badge/Jayant-Kageri-green?style=for-the-badge&logo=origin)](https://github.com/jayantkageri)
-<br> [![DivideProjects](https://img.shields.io/badge/Divide-Projects-green?style=for-the-badge&logo=appveyor)](https://t.me/DivideProjectsDiscussion)
+<br> [![DivideProjects](https://img.shields.io/badge/Divide-Projects-green?style=for-the-badge&logo=appveyor)](https://t.me/DivideSupport)
