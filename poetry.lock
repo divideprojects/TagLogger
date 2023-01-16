@@ -317,14 +317,14 @@ files = [
 
 [[package]]
 name = "pyclean"
-version = "2.2.0"
+version = "2.4.0"
 description = "Pure Python cross-platform pyclean. Clean up your Python bytecode."
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pyclean-2.2.0-py3-none-any.whl", hash = "sha256:5f99597b76249b71b86d8e9aff1e69dfdc0b1976d14ce366e07b28dc6f7a8ee6"},
-    {file = "pyclean-2.2.0.tar.gz", hash = "sha256:48f1801804fa2f04f2c64348da8bd61797fc9722e1120c470d5cc67a205843c7"},
+    {file = "pyclean-2.4.0-py3-none-any.whl", hash = "sha256:f5c19b8ad80e3f460819f3a01d631d384f27d23b7afc5685f7ee8839f8a120e7"},
+    {file = "pyclean-2.4.0.tar.gz", hash = "sha256:ec41db7438f2f7b22c1e746e7f93a82f4ca2de57329d61f30d40e447d68d4edd"},
 ]
 
 [[package]]
@@ -653,4 +653,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "fc1c4eaa25792979c641ad177ede094b48d426bde8c6eec6230ea538533e86d1"
+content-hash = "2601b6a176c96689b5ca0fe3010eb61db11b793b110d2a69d71c6ebe2907fcea"
