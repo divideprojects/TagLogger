@@ -8,7 +8,7 @@
 - Gather Pyrogram String Session [from here](https://replit.com/@jayantkageri/StringSession#main.py)
 
 ### For Heroku Deployment Click Below Button 👇
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/DivideProjects/TagLogger)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/divkix/TagLogger)
 <br>
 
 ### For Local Deployment

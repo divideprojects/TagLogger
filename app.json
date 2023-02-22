@@ -11,7 +11,7 @@
         "taglogger bot",
         "taglogger"
     ],
-    "repository": "https://github.com/DivideProjects/TagLogger",
+    "repository": "https://github.com/divkix/TagLogger",
     "website": "https://github.com/jayantkageri",
     "success_url": "https://github.com/jayantkageri",
     "env": {
