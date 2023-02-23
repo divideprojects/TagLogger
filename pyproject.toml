@@ -2,7 +2,7 @@
 name = "taglogger"
 version = "1.0.0"
 description = "Simple Bot for notify you in a Group when you were Tagged"
-authors = ["Divanshu Chauhan <23524935+Divkix@users.noreply.github.com>"]
+authors = ["Divanshu Chauhan <divkix@divkix.me>"]
 license = "GPL-3.0"
 
 [tool.poetry.dependencies]
