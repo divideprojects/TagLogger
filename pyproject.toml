@@ -7,7 +7,7 @@ license = "GPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-Pyrogram = "^2.0.100"
+Pyrogram = "^2.0.102"
 TgCrypto = "^1.2.5"
 
 [tool.poetry.dev-dependencies]
